@@ -2,6 +2,7 @@ import './App.css';
 import MovieForm from './MovieForm';
 import { useState } from 'react';
 import Movie from './Movie';
+import MovieList from './MovieList';
 
 function App() {
   const [allMovies, setAllMovies] = useState([]);
@@ -9,6 +10,18 @@ function App() {
   const [movieFormDirector, setMovieFormDirector] = useState('');
   const [movieFormYear, setMovieFormYear] = useState('');
   const [movieFormColor, setMovieFormColor] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [showFilterInput, setShowFilterInput] = useState(false);
+  function handleDeleteMovie(id) {
+    const index = allMovies.findIndex((movie) => movie.id === id);
+    allMovies.splice(index, 1);
+    setAllMovies([...allMovies]);
+  }
+
+  function handleFilteredMovies(query) {
+    const filteredMovies = allMovies.filter((movie) => movie.title.includes(query));
+    setFilteredMovies(filteredMovies);
+  }
 
   function submitMovie(e) {
     e.preventDefault();
@@ -20,40 +33,55 @@ function App() {
       id: Math.random(),
     };
     const updatedMovies = [...allMovies, newMovie];
+    setShowFilterInput(true);
     setAllMovies(updatedMovies);
   }
 
   return (
-    <div className="App">
-      <section className="current-movie-section">
-        {movieFormTitle && (
-          <Movie
-            movie={{
-              color: movieFormColor,
-              director: movieFormDirector,
-              title: movieFormTitle,
-              year: movieFormYear,
-            }}
+    <>
+      <header>Movie List:</header>
+      <div className="App">
+        <section className="current-movie-section">
+          {movieFormTitle && (
+            <Movie
+              movie={{
+                color: movieFormColor,
+                director: movieFormDirector,
+                title: movieFormTitle,
+                year: movieFormYear,
+              }}
+            />
+          )}
+          <MovieForm
+            allMovies={allMovies}
+            setAllMovies={setAllMovies}
+            movieFormColor={movieFormColor}
+            setMovieFormColor={setMovieFormColor}
+            movieFormDirector={movieFormDirector}
+            setMovieFormDirector={setMovieFormDirector}
+            movieFormTitle={movieFormTitle}
+            setMovieFormTitle={setMovieFormTitle}
+            movieFormYear={movieFormYear}
+            setMovieFormYear={setMovieFormYear}
+            submitMovie={submitMovie}
           />
-        )}
-        <MovieForm
-          allMovies={allMovies}
-          setAllMovies={setAllMovies}
-          movieFormColor={movieFormColor}
-          setMovieFormColor={setMovieFormColor}
-          movieFormDirector={movieFormDirector}
-          setMovieFormDirector={setMovieFormDirector}
-          movieFormTitle={movieFormTitle}
-          setMovieFormTitle={setMovieFormTitle}
-          movieFormYear={movieFormYear}
-          setMovieFormYear={setMovieFormYear}
-          submitMovie={submitMovie}
-        />
-      </section>
-      <section>
-        <div className="movie-list"></div>
-      </section>
-    </div>
+        </section>
+        <section className="display-movies">
+          <MovieList
+            movies={filteredMovies.length ? filteredMovies : allMovies}
+            handleDeleteMovie={handleDeleteMovie}
+          />
+          {showFilterInput && (
+            <div className="movie-filter">
+              <input
+                onChange={(e) => handleFilteredMovies(e.target.value)}
+                placeholder="Filter Movies"
+              />
+            </div>
+          )}
+        </section>
+      </div>
+    </>
   );
 }
 
