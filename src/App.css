@@ -1,19 +1,31 @@
 .App {
   text-align: center;
+  height: inherit;
+  display: flex;
+  justify-content: space-evenly;
+  /* background-color: maroon; */
+  padding: 100px;
 }
-
-.App-logo {
+html {
+  background: url('./background.png');
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
-.App-header {
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,6 +34,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  background-color: aliceblue;
+  font-family: 'Anton', sans-serif;
+  font-size: 40px;
+  align-items: flex-end;
 }
 
 .App-link {
@@ -35,4 +57,49 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.current-movie-section {
+  width: fit-content;
+  /* background-color: magenta; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-form {
+  width: fit-content;
+  /* background-color: bisque; */
+  display: flex;
+  flex-direction: column;
+}
+
+.display-movies {
+  /* background-color: chartreuse; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.movie-list {
+  /* background-color: coral; */
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 1rem;
+  margin-bottom: 10px;
+}
+
+.movie-display {
+  border: black solid 2px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 217, 0, 0.486);
+}
+
+input,
+select {
+  border-radius: 5px;
+  background-color: rgba(255, 217, 0, 0.721);
 }
