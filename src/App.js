@@ -26,11 +26,16 @@ function App() {
   return (
     <div className="App">
       <section className="current-movie-section">
-        <div className="current-movie-display" style={{ backgroundColor: movieFormColor }}>
-          <h3>{movieFormTitle}</h3>
-          <p>{movieFormYear}</p>
-          <p>Directed by {movieFormDirector}</p>
-        </div>
+        {movieFormTitle && (
+          <Movie
+            movie={{
+              color: movieFormColor,
+              director: movieFormDirector,
+              title: movieFormTitle,
+              year: movieFormYear,
+            }}
+          />
+        )}
         <MovieForm
           allMovies={allMovies}
           setAllMovies={setAllMovies}
@@ -44,6 +49,9 @@ function App() {
           setMovieFormYear={setMovieFormYear}
           submitMovie={submitMovie}
         />
+      </section>
+      <section>
+        <div className="movie-list"></div>
       </section>
     </div>
   );
