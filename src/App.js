@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import MovieForm from './MovieForm';
+import { useState } from 'react';
 
 function App() {
+  const [allMovies, setAllMovies] = useState([]);
+  const [movieFormTitle, setMovieFormTitle] = useState('');
+  const [movieFormDirector, setMovieFormDirector] = useState('');
+  const [movieFormYear, setMovieFormYear] = useState('');
+  const [movieFormColor, setMovieFormColor] = useState('');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="current-movie-section">
+        <div className="current-move-display"></div>
+        <MovieForm
+          allMovies={allMovies}
+          setAllMovies={setAllMovies}
+          movieFormColor={movieFormColor}
+          setMovieFormColor={setMovieFormColor}
+          movieFormDirector={movieFormDirector}
+          setMovieFormDirector={setMovieFormDirector}
+          movieFormTitle={movieFormTitle}
+          setMovieFormTitle={setMovieFormTitle}
+          movieFormYear={movieFormYear}
+          setMovieFormYear={setMovieFormYear}
+        />
+      </section>
     </div>
   );
 }
