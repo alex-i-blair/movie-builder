@@ -1,6 +1,7 @@
 import './App.css';
 import MovieForm from './MovieForm';
 import { useState } from 'react';
+import Movie from './Movie';
 
 function App() {
   const [allMovies, setAllMovies] = useState([]);
@@ -9,10 +10,27 @@ function App() {
   const [movieFormYear, setMovieFormYear] = useState('');
   const [movieFormColor, setMovieFormColor] = useState('');
 
+  function submitMovie(e) {
+    e.preventDefault();
+    const newMovie = {
+      title: movieFormTitle,
+      director: movieFormDirector,
+      year: movieFormYear,
+      color: movieFormColor,
+      id: Math.random(),
+    };
+    const updatedMovies = [...allMovies, newMovie];
+    setAllMovies(updatedMovies);
+  }
+
   return (
     <div className="App">
       <section className="current-movie-section">
-        <div className="current-move-display"></div>
+        <div className="current-movie-display" style={{ backgroundColor: movieFormColor }}>
+          <h3>{movieFormTitle}</h3>
+          <p>{movieFormYear}</p>
+          <p>Directed by {movieFormDirector}</p>
+        </div>
         <MovieForm
           allMovies={allMovies}
           setAllMovies={setAllMovies}
@@ -24,6 +42,7 @@ function App() {
           setMovieFormTitle={setMovieFormTitle}
           movieFormYear={movieFormYear}
           setMovieFormYear={setMovieFormYear}
+          submitMovie={submitMovie}
         />
       </section>
     </div>

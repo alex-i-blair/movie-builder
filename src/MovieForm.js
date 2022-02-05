@@ -7,26 +7,10 @@ export default function MovieForm({
   setMovieFormTitle,
   movieFormYear,
   setMovieFormYear,
-  allMovies,
-  setAllMovies,
+  submitMovie,
 }) {
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const newMovie = {
-          title: movieFormTitle,
-          director: movieFormDirector,
-          year: movieFormYear,
-          color: movieFormColor,
-          id: Math.random(),
-        };
-        const updatedMovies = [...allMovies, newMovie];
-        setAllMovies(updatedMovies);
-      }}
-      required
-      value={movieFormTitle}
-    >
+    <form onSubmit={submitMovie} className="movie-form">
       <label>
         Title
         <input
